@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blob and URL.createObjectURL Example</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+
+<script>
+  function downloadTextFile() {
+    const textContent = 'hello sir , this is arin and you can call me ris from now on. because alex told me that you asked for my nickname. and i hope this nickname could make it easier to remember. best regard ris ;D';
+
+    const blob = new Blob([textContent], { type: 'text/plain' });
+
+    const url = URL.createObjectURL(blob);
+
+    const downloadLink = document.createElement('a');
+    downloadLink.href = url;
+    downloadLink.download = 'My_Nickname_info.txt';
+    downloadLink.textContent = 'Download Text File';
+
+    document.body.appendChild(downloadLink);
+
+    downloadLink.click();
+
+    document.body.removeChild(downloadLink);
+
+    URL.revokeObjectURL(url);
+  }
+</script>
+
+<button onclick="downloadTextFile()">Download Text File</button>
+
+</body>
+</html>

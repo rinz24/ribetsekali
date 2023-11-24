@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FileSaver.js Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    function downloadTextFile() {
+        const textContent = 'sir please my name is not that hard though -_-';
+        const blob = new Blob([textContent], { type: 'text/plain' });
+        saveAs(blob, 'example.txt');
+    }
+</script>
+
+<button onclick="downloadTextFile()">Download Text File</button>
+
+</body>
+</html>

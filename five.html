@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 FileWriter API (Deprecated)</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    function downloadTextFile() {
+        const textContent = 'please dont forget my name O_O';
+        const blob = new Blob([textContent], { type: 'text/plain' });
+
+        const reader = new FileReader();
+        reader.onloadend = function () {
+            const dataUrl = reader.result;
+
+            const a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = 'Myname.txt';
+            a.textContent = 'Download Text File';
+
+            document.body.appendChild(a);
+
+            a.click();
+
+            document.body.removeChild(a);
+        };
+
+        reader.readAsDataURL(blob);
+    }
+</script>
+
+<button onclick="downloadTextFile()">Download Text File</button>
+
+</body>
+</html>
