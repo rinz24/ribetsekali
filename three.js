@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const app = express();
 const port = 3000;
@@ -12,45 +13,60 @@ app.get('/', (req, res) => {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Node.js Server-Side Example</title>
             <style>
                 body {
                     font-family: 'Arial', sans-serif;
-                    background-color: #f0f0f0;
-                    margin: 0;
+                    text-align: center;
+                    margin: 20px;
                 }
 
-                .container {
-                    max-width: 600px;
-                    margin: 50px auto;
-                    padding: 20px;
-                    background-color: #fff;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                }
-
-                h1 {
-                    color: #007BFF;
-                }
-
-                p {
-                    color: #333;
+                #output {
+                    margin-top: 20px;
                 }
             </style>
-            <title>Node.js Server HTML and CSS</title>
         </head>
         <body>
 
-        <div class="container">
-            <h1>Hello from Node.js Server!</h1>
-            <p>This is a simple HTML page served by a Node.js server.</p>
-        </div>
+        <button onclick="fetchFile()">Fetch Text File</button>
+        <div id="output"></div>
+
+        <script>
+            function fetchFile() {
+                fetch('/readFile')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(\`HTTP error! Status: \${response.status}\`);
+                        }
+                        return response.text();
+                    })
+                    .then(content => {
+                        const outputDiv = document.getElementById('output');
+                        outputDiv.textContent = content;
+                        // Process the file content as needed
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        </script>
 
         </body>
         </html>
     `);
 });
 
-app.listen(port, () => {
-    console.log(`Server listening on http://localhost:${port}`);
+app.get('/readFile', (req, res) => {
+    const filePath = path.join(__dirname, 'example.txt');
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.send(data);
+    });
 });
 
-// sir I tried to make it, but I don't know where I got it wrong.
+app.listen(port, () => {
+    console.log(\`Server listening on http://localhost:\${port}\`);
+});

@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FileSaver.js Example</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <title>Fetch API Example</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -17,19 +16,33 @@
             font-size: 16px;
             cursor: pointer;
         }
+
+        #output {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
+<button onclick="fetchFile()">Fetch Text File</button>
+<div id="output"></div>
+
 <script>
-    function downloadTextFile() {
-        const textContent = 'sir please my name is not that hard though -_-';
-        const blob = new Blob([textContent], { type: 'text/plain' });
-        saveAs(blob, 'example.txt');
+    function fetchFile() {
+        fetch('example.txt')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(content => {
+                const outputDiv = document.getElementById('output');
+                outputDiv.textContent = content;
+            })
+            .catch(error => console.error('Error:', error));
     }
 </script>
-
-<button onclick="downloadTextFile()">Download Text File</button>
 
 </body>
 </html>

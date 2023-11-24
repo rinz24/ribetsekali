@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blob and URL.createObjectURL Example</title>
-</head>
-<body>
+    <title>File Input Example</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -13,40 +11,41 @@
             margin: 20px;
         }
 
-        button {
+        input {
+            margin-top: 20px;
             padding: 10px;
             font-size: 16px;
-            cursor: pointer;
+            border: 2px solid #ff82bc; 
+            border-radius: 5px; 
+            background-color: rgb(179, 185, 255); 
+        }
+
+        #output {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
+<input type="file" id="fileInput" onchange="readFile()">
+<div id="output"></div>
 
 <script>
-  function downloadTextFile() {
-    const textContent = 'hello sir , this is arin and you can call me ris from now on. because alex told me that you asked for my nickname. and i hope this nickname could make it easier to remember. best regard ris ;D';
+    function readFile() {
+        const fileInput = document.getElementById('fileInput');
+        const outputDiv = document.getElementById('output');
+        const file = fileInput.files[0];
 
-    const blob = new Blob([textContent], { type: 'text/plain' });
-
-    const url = URL.createObjectURL(blob);
-
-    const downloadLink = document.createElement('a');
-    downloadLink.href = url;
-    downloadLink.download = 'My_Nickname_info.txt';
-    downloadLink.textContent = 'Download Text File';
-
-    document.body.appendChild(downloadLink);
-
-    downloadLink.click();
-
-    document.body.removeChild(downloadLink);
-
-    URL.revokeObjectURL(url);
-  }
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const content = e.target.result;
+                outputDiv.textContent = content;
+            };
+            reader.readAsText(file);
+        }
+    }
 </script>
-
-<button onclick="downloadTextFile()">Download Text File</button>
 
 </body>
 </html>
