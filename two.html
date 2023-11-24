@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fetch API Example</title>
+    <title>jQuery File Upload Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.12.0/js/jquery.fileupload.min.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -11,37 +13,33 @@
             margin: 20px;
         }
 
-        button {
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
+        input {
+            display: none;
         }
 
-        #output {
-            margin-top: 20px;
+        label {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-<button onclick="fetchFile()">Fetch Text File</button>
-<div id="output"></div>
+<label for="fileInput">Select Files</label>
+<input id="fileInput" type="file" name="files[]" multiple>
 
 <script>
-    function fetchFile() {
-        fetch('example.txt')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.text();
-            })
-            .then(content => {
-                const outputDiv = document.getElementById('output');
-                outputDiv.textContent = content;
-            })
-            .catch(error => console.error('Error:', error));
-    }
+    $(function () {
+        $('#fileInput').fileupload({
+            url: 'upload.php',
+            dataType: 'json',
+            done: function (e, data) {
+            }
+        });
+    });
 </script>
 
 </body>

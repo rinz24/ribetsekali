@@ -1,0 +1,38 @@
+<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-storage.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Storage Example</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    const firebaseConfig = {
+        apiKey: 'your-api-key',
+        authDomain: 'your-auth-domain',
+        projectId: 'your-project-id',
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const storage = firebase.storage();
+    const storageRef = storage.ref();
+    const fileRef = storageRef.child('example.txt');
+    const content = 'Hello, this is some text content!';
+    fileRef.putString(content).then((snapshot) => {
+        console.log('Uploaded a string!');
+    });
+</script>
+
+</body>
+</html>

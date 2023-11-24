@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data URI Example</title>
+    <title>Django Storage Backends Example</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -11,20 +11,23 @@
             margin: 20px;
         }
 
-        a {
-            display: inline-block;
+        .download-link {
             padding: 10px;
             font-size: 16px;
             text-decoration: none;
-            background-color: #007BFF;
+            background-color: #28a745;
             color: #fff;
             border-radius: 5px;
+            margin-top: 10px;
+            display: inline-block;
         }
     </style>
 </head>
 <body>
 
-<a href="data:text/plain;charset=utf-8,Sir%20Alex%20is%20my%20friend.%20He's%20cool%20and%20smart,%20but%20yeah,%20he's%20just%20my%20friend%20(don't%20tell%20him%20I%20said%20this)." download="please.txt">Download Text File</a>
+{% load static %}
+
+<a href="{% url 'download_file' file_id %}" class="download-link">Download File</a>
 
 </body>
 </html>

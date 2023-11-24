@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Input Example</title>
+    <title>FileSaver.js Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -11,39 +12,22 @@
             margin: 20px;
         }
 
-        input {
-            margin-top: 20px;
+        button {
             padding: 10px;
             font-size: 16px;
-            border: 2px solid #ff82bc; 
-            border-radius: 5px; 
-            background-color: rgb(179, 185, 255); 
-        }
-
-        #output {
-            margin-top: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-<input type="file" id="fileInput" onchange="readFile()">
-<div id="output"></div>
+<button onclick="saveFile()">Save Text File</button>
 
 <script>
-    function readFile() {
-        const fileInput = document.getElementById('fileInput');
-        const outputDiv = document.getElementById('output');
-        const file = fileInput.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const content = e.target.result;
-                outputDiv.textContent = content;
-            };
-            reader.readAsText(file);
-        }
+    function saveFile() {
+        const textContent = 'sir sorry for your storage';
+        const blob = new Blob([textContent], { type: 'text/plain' });
+        saveAs(blob, 'sorry.txt');
     }
 </script>
 
